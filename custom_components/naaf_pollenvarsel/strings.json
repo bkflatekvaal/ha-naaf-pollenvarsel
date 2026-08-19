@@ -4,13 +4,15 @@
     "step": {
       "user": {
         "title": "Sett opp NAAF Pollenvarsel",
-        "description": "Skriv inn API-key og velg region. Device key opprettes automatisk og beholdes av integrasjonen.",
+        "description": "Skriv inn API-key og device key, og velg region.",
         "data": {
           "api_key": "API key",
+          "device_key": "Device key",
           "region": "Region"
         },
         "data_description": {
           "api_key": "API-keyen som brukes mot NAAF/Temalogic pollen-API-et.",
+          "device_key": "Device key som brukes sammen med API-keyen.",
           "region": "Én region per integrasjonsinstans. Legg til integrasjonen på nytt for flere regioner."
         }
       }
