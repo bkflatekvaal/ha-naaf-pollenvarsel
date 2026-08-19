@@ -8,7 +8,7 @@ Early development version. The integration uses the API endpoint discovered in t
 
 `https://apigw.temalogic.com/naaf-prod/pollen-api/pollen/allRegionsForecast`
 
-The Android app generates its `deviceKey` with a random UUID and stores/reuses it. The config flow accepts a device key together with the API key.
+The Android app generates its `deviceKey` with a random UUID and stores/reuses it. The config flow therefore creates a UUID automatically.
 
 ## Installation
 
@@ -18,7 +18,7 @@ The Android app generates its `deviceKey` with a random UUID and stores/reuses i
 2. Install **NAAF Pollenvarsel**.
 3. Restart Home Assistant.
 4. Go to **Settings → Devices & services → Add integration → NAAF Pollenvarsel**.
-5. Enter the API key and device key, select a region, and finish setup.
+5. Enter the API key, select a region, and finish setup.
 
 ### Manual
 
@@ -49,7 +49,7 @@ Each entity also exposes the numeric `distribution`, forecast text and tomorrow'
 
 ## Authentication note
 
-The currently known app behavior uses a persistent UUID as `device_key`. Both the device key and API key are entered in the config flow while the remaining request/authentication details are being verified. If your known working request uses different header names, adjust `api.py` accordingly.
+The Android app sends the configured API key in the `AppKey` header and its persistent UUID in the `DeviceKey` header. The config flow generates and persists the device key automatically.
 
 ## Data source
 

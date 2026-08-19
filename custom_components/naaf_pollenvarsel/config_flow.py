@@ -1,6 +1,8 @@
 """Config flow for NAAF Pollenvarsel."""
 from __future__ import annotations
 
+import uuid
+
 import voluptuous as vol
 
 from homeassistant import config_entries
@@ -32,6 +34,10 @@ class NaafPollenConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         errors: dict[str, str] = {}
 
         if user_input is not None:
+            # Match the Android app: generate the device key once and persist
+            # it in the config entry after successful validation.
+            user_input[CONF_DEVICE_KEY] = str(uuid.uuid4())
+
             await self.async_set_unique_id(user_input[CONF_REGION])
             self._abort_if_unique_id_configured()
             try:
@@ -51,7 +57,6 @@ class NaafPollenConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         schema = vol.Schema(
             {
                 vol.Required(CONF_API_KEY): str,
-                vol.Required(CONF_DEVICE_KEY): str,
                 vol.Required(CONF_REGION, default="rogaland"): SelectSelector(
                     SelectSelectorConfig(
                         options=[

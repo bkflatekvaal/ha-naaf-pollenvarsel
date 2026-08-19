@@ -31,14 +31,11 @@ class NaafPollenApi:
 
     @property
     def headers(self) -> dict[str, str]:
-        # The Android app uses a persistent UUID as device_key. Keep it stable.
-        headers = {
-            "Accept": "application/json",
-            "device_key": self._device_key,
+        """Return the headers used by the Android app's pollen request."""
+        return {
+            "AppKey": self._api_key or "",
+            "DeviceKey": self._device_key,
         }
-        if self._api_key:
-            headers["x-api-key"] = self._api_key
-        return headers
 
     async def async_get_forecast(self) -> list[dict[str, Any]]:
         url = f"{API_BASE_URL}{API_FORECAST_PATH}"
