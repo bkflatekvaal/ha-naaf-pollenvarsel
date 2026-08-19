@@ -1,0 +1,27 @@
+{
+  "title": "NAAF Pollenvarsel",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Sett opp NAAF Pollenvarsel",
+        "description": "Skriv inn API-key og velg region. Device key opprettes automatisk og beholdes av integrasjonen.",
+        "data": {
+          "api_key": "API key",
+          "region": "Region"
+        },
+        "data_description": {
+          "api_key": "API-keyen som brukes mot NAAF/Temalogic pollen-API-et.",
+          "region": "Én region per integrasjonsinstans. Legg til integrasjonen på nytt for flere regioner."
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Kunne ikke koble til NAAF pollen-API-et.",
+      "invalid_auth": "API-et avviste API key/device key.",
+      "unknown": "Uventet feil."
+    },
+    "abort": {
+      "already_configured": "Denne regionen er allerede konfigurert."
+    }
+  }
+}
