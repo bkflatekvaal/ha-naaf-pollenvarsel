@@ -133,9 +133,9 @@ class NaafPollenForecastSensor(NaafPollenEntity, SensorEntity):
     def __init__(self, coordinator: NaafPollenCoordinator, region_id: str) -> None:
         super().__init__(coordinator, region_id)
         self._attr_has_entity_name = False
-        self._attr_name = "Tekstvarsel"
-        self._attr_suggested_object_id = f"{region_id}_tekstvarsel"
-        self._attr_unique_id = f"{region_id}_tekstvarsel"
+        self._attr_name = "Pollenvarsel"
+        self._attr_suggested_object_id = f"{region_id}_pollenvarsel"
+        self._attr_unique_id = f"{region_id}_pollenvarsel"
 
     @property
     def native_value(self) -> str | None:
