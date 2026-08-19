@@ -23,5 +23,19 @@
     "abort": {
       "already_configured": "Denne regionen er allerede konfigurert."
     }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Innstillinger for NAAF Pollenvarsel",
+        "description": "Velg hvor ofte pollenvarselet skal oppdateres.",
+        "data": {
+          "poll_interval": "Oppdateringsintervall (minutter)"
+        },
+        "data_description": {
+          "poll_interval": "Kan settes fra 15 til 1440 minutter."
+        }
+      }
+    }
   }
 }

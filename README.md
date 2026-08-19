@@ -20,6 +20,10 @@ The Android app generates its `deviceKey` with a random UUID and stores/reuses i
 4. Go to **Settings → Devices & services → Add integration → NAAF Pollenvarsel**.
 5. Enter the API key, select a region, and finish setup.
 
+## Configuration
+
+Open the integration's **Configure** dialog to change its polling interval. The default is 60 minutes, and the supported range is 15 to 1440 minutes. Each configured region has its own interval.
+
 ### Manual
 
 Copy `custom_components/naaf_pollenvarsel` to the `custom_components` directory in your Home Assistant config folder and restart Home Assistant.

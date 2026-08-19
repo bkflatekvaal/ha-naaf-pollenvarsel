@@ -14,6 +14,10 @@ CONF_DEVICE_KEY = "device_key"
 CONF_API_KEY = "api_key"
 
 DEFAULT_SCAN_INTERVAL = timedelta(hours=1)
+CONF_POLL_INTERVAL = "poll_interval"
+DEFAULT_POLL_INTERVAL_MINUTES = 60
+MIN_POLL_INTERVAL_MINUTES = 15
+MAX_POLL_INTERVAL_MINUTES = 1440
 
 REGIONS: dict[str, str] = {
     "ostlandetMedOslo": "Østlandet med Oslo",

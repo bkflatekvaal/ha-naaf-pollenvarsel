@@ -7,12 +7,21 @@ import voluptuous as vol
 
 from homeassistant import config_entries
 from homeassistant.const import CONF_API_KEY
-from homeassistant.core import HomeAssistant
+from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.selector import SelectSelector, SelectSelectorConfig
 
 from .api import NaafPollenApi, NaafPollenApiError, NaafPollenAuthError
-from .const import CONF_DEVICE_KEY, CONF_REGION, DOMAIN, REGIONS
+from .const import (
+    CONF_DEVICE_KEY,
+    CONF_POLL_INTERVAL,
+    CONF_REGION,
+    DEFAULT_POLL_INTERVAL_MINUTES,
+    DOMAIN,
+    MAX_POLL_INTERVAL_MINUTES,
+    MIN_POLL_INTERVAL_MINUTES,
+    REGIONS,
+)
 
 
 async def _validate(hass: HomeAssistant, data: dict) -> None:
@@ -28,6 +37,14 @@ class NaafPollenConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     """Handle the NAAF Pollenvarsel config flow."""
 
     VERSION = 1
+
+    @staticmethod
+    @callback
+    def async_get_options_flow(
+        config_entry: config_entries.ConfigEntry,
+    ) -> config_entries.OptionsFlow:
+        """Return the options flow handler."""
+        return NaafPollenOptionsFlow()
 
     async def async_step_user(self, user_input=None):
         """Handle initial setup."""
@@ -69,3 +86,34 @@ class NaafPollenConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             }
         )
         return self.async_show_form(step_id="user", data_schema=schema, errors=errors)
+
+
+class NaafPollenOptionsFlow(config_entries.OptionsFlow):
+    """Handle configurable integration options."""
+
+    async def async_step_init(self, user_input=None):
+        """Configure the polling interval."""
+        if user_input is not None:
+            return self.async_create_entry(title="", data=user_input)
+
+        current_interval = self.config_entry.options.get(
+            CONF_POLL_INTERVAL,
+            DEFAULT_POLL_INTERVAL_MINUTES,
+        )
+        return self.async_show_form(
+            step_id="init",
+            data_schema=vol.Schema(
+                {
+                    vol.Required(
+                        CONF_POLL_INTERVAL,
+                        default=current_interval,
+                    ): vol.All(
+                        vol.Coerce(int),
+                        vol.Range(
+                            min=MIN_POLL_INTERVAL_MINUTES,
+                            max=MAX_POLL_INTERVAL_MINUTES,
+                        ),
+                    )
+                }
+            ),
+        )
